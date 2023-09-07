@@ -139,5 +139,30 @@ app.post("/choice/:id/vote", async (req, res) => {
     }
 })
 
+app.get("/poll/:id/result", async (req, res) => {
+    const {id} = req.params;
+
+    if (!id) {
+        return res.sendStatus(422);
+    }
+
+    try {
+        const poll = await db.collection("polls").findOne({_id: new ObjectId(id)});
+
+        if (!poll) {
+            return res.sendStatus(404);
+        }
+
+        const mostVoted = await db.collection("votes").find({pollId: id}).sort({votes: -1}).limit(1).toArray();
+
+        poll.result = {title: mostVoted[0].choiceTitle, votes: mostVoted[0].votes};
+
+        res.send(poll);
+
+    } catch (err) {
+        res.send(res.message);
+    }
+})
+
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
