@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { db } from "../app.js";
+import { db } from "../database/database.js";
 import { ObjectId } from "mongodb";
 import { pollSchema } from "../schemas/poll.schemas.js";
 

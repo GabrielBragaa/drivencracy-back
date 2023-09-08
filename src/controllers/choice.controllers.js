@@ -1,4 +1,4 @@
-import { db } from '../app.js';
+import { db } from '../database/database.js';
 import dayjs from 'dayjs';
 import { ObjectId } from 'mongodb';
 import { choiceSchema } from '../schemas/choice.schemas.js';
