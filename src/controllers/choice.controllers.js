@@ -1,19 +1,11 @@
 import { db } from '../database/database.js';
 import dayjs from 'dayjs';
 import { ObjectId } from 'mongodb';
-import { choiceSchema } from '../schemas/choice.schemas.js';
 
 export async function sendChoice (req, res) {
     const {title, pollId} = req.body;
     const choice = {title, pollId};
-    const validation = choiceSchema.validate(req.body, {abortEarly: false});
-
-    if (validation.error) {
-        const errors = validation.error.details.map((detail) => detail.message);
-        res.status(422).send(errors);
-    }
-
-
+    
     if (!title) {
         return res.status(422).send("Preencha o título!");
     }
