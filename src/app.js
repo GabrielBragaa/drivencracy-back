@@ -14,7 +14,6 @@ dotenv.config();
 const mongoClient = new MongoClient(process.env.DATABASE_URL);
 let db;
  
-
 mongoClient.connect()
 .then(() => db = mongoClient.db())
 .catch((err) => console.log(err.message));
