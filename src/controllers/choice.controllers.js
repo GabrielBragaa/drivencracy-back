@@ -1,16 +1,11 @@
-import joi from 'joi';
 import { db } from '../app.js';
 import dayjs from 'dayjs';
 import { ObjectId } from 'mongodb';
+import { choiceSchema } from '../schemas/choice.schemas.js';
 
 export async function sendChoice (req, res) {
     const {title, pollId} = req.body;
     const choice = {title, pollId};
-    const choiceSchema = joi.object({
-        title: joi.string().required(),
-        pollId: joi.string().required()
-    })
-
     const validation = choiceSchema.validate(req.body, {abortEarly: false});
 
     if (validation.error) {

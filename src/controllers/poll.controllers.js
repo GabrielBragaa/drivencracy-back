@@ -1,16 +1,11 @@
 import dayjs from "dayjs";
-import joi from 'joi';
 import { db } from "../app.js";
 import { ObjectId } from "mongodb";
+import { pollSchema } from "../schemas/poll.schemas.js";
 
 export async function sendPoll (req, res) {
     let {title, expireAt} = req.body;
     const day = dayjs().day();
-    const pollSchema = joi.object({
-        title: joi.string().min(3).required(),
-        expireAt: joi.date()
-    })
-
     const validation = pollSchema.validate(req.body, {abortEarly: false});
 
     if (validation.error) {
